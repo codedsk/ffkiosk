@@ -5,14 +5,15 @@ profilename=`mktemp -u XXXXXXXXXXX`
 profiledir=/tmp/${profilename}
 
 scriptdir=`dirname "$(readlink -f "$0")"`
+sharedir=`dirname ${scriptdir}`/share
 
 # create the firefox profile
 firefox --no-remote -CreateProfile "${profilename} ${profiledir}"
 
 # copy the browser preferences to the profile
-cp ${scriptdir}/user.js ${profiledir}/.
+cp ${sharedir}/user.js ${profiledir}/.
 mkdir -p ${profiledir}/chrome
-cp ${scriptdir}/userChrome.css ${profiledir}/chrome
+cp ${sharedir}/userChrome.css ${profiledir}/chrome
 
 # launch the browser
 firefox -no-remote -P "${profilename}" $1
